@@ -4,15 +4,19 @@
   </ion-app>
 </template>
 
-<script lang="ts">
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent } from 'vue';
+<script lang="js">
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
 
-export default defineComponent({
-  name: 'App',
+export default {
+  name: "App",
   components: {
     IonApp,
-    IonRouterOutlet
-  }
-});
+    IonRouterOutlet,
+  },
+  async created() {
+    let resp = await this.$store.dispatch("fetchProducts");
+    console.log(resp.data);
+
+  },
+};
 </script>

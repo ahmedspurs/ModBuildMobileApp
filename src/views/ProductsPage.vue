@@ -88,12 +88,14 @@
 
 <script>
 import {IonPage , IonHeader, IonContent} from "@ionic/vue"
+import { mapGetters } from 'vuex'
 
 export default {
 name:"ProductsPage",
 components:{
   IonPage , IonHeader , IonContent
-}
+},
+computed : mapGetters["products"]
 }
 </script>
 

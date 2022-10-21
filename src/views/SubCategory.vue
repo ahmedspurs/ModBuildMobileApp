@@ -87,7 +87,7 @@
 
 <script>
 import { IonPage, IonContent, IonHeader, IonCard } from "@ionic/vue";
-
+import {mapGetters} from "vuex";
 import { ref } from "vue";
 
 export default {
@@ -98,6 +98,7 @@ export default {
     IonHeader,
     IonCard,
   },
+  computed : mapGetters["subCategories"],
   setup() {
     const accordionGroup = ref();
     return {

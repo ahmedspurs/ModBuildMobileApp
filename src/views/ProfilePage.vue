@@ -23,7 +23,7 @@
         </div>
       </div>
     </ion-header>
-    <ion-content class=" ">
+    <ion-content class="">
       <div class="flex flex-col justify-center items-center pt-4">
         <img
           src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
@@ -34,48 +34,49 @@
         <span class="block py-1 text-xl"> @ahmedspurs </span>
       </div>
       <div class="px-2 py-4">
-         <router-link to="/tabs/EditProfile">
-             <div class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
-          <span class="text-xl text-black"> تعديل الملف الشخصي </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-black"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </div>
+        <router-link to="/tabs/EditProfile">
+          <div class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
+            <span class="text-xl text-black"> تعديل الملف الشخصي </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </div>
         </router-link>
         <router-link to="/tabs/LastOrders">
-             <div class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
-          <span class="text-xl text-black"> الطلبات السابقه </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-black"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </div>
+          <div class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
+            <span class="text-xl text-black"> الطلبات السابقه </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </div>
         </router-link>
-       
+
         <div
           @click="logout"
-         class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
+          class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2"
+        >
           <span class="text-xl text-red-500"> تسجيل الخروج </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -98,20 +99,22 @@
 </template>
 
 <script>
-import {IonPage  ,IonHeader , IonContent} from "@ionic/vue"
+import { IonPage, IonHeader, IonContent } from "@ionic/vue";
 
 export default {
   name: "ProfilePage",
-  components:{
-  IonPage ,IonHeader , IonContent
-},
-methods:{
-logout(){
-  this.$router.push("/tabs/HomePage")
-  this.toast("top","danger","تم تسجيل الخروج بنجاح")
-}
-},
-inject:["toast"]
+  components: {
+    IonPage,
+    IonHeader,
+    IonContent,
+  },
+  methods: {
+    logout() {
+      this.$router.push("/tabs/HomePage");
+      this.toast("top", "danger", "تم تسجيل الخروج بنجاح");
+    },
+  },
+  inject: ["toast"],
 };
 </script>
 

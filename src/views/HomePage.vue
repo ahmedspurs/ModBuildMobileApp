@@ -1,6 +1,7 @@
 <template>
   <ion-page class="bg-blue-50">
-    <ion-content>
+    <loading-spinner  v-show="Loading"/>
+    <ion-content v-show="!Loading">
       <!-- header section -->
       <div class="header bg-blue-500 text-white py-4 rounded-b-2xl">
         <div class="flex items-cnter justify-between px-4">
@@ -170,6 +171,7 @@
               viewBox="0 0 24 24"
               stroke="currentColor"
               stroke-width="2"
+              @click="showAlert()"
             >
               <path
                 stroke-linecap="round"
@@ -233,12 +235,30 @@
 
 <script>
 import {IonPage , IonContent ,IonSlide ,IonSlides , IonCard,IonCardContent,IonText} from "@ionic/vue"
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   name: "HomePage",
   components:{
-  IonPage, IonContent ,IonSlide ,IonSlides , IonCard,IonCardContent,IonText
-}
+  IonPage, IonContent ,IonSlide ,IonSlides , IonCard,IonCardContent,IonText,
+    LoadingSpinner
+},
+data(){
+  return{
+Loading : true
+  }
+},
+created(){
+  setTimeout(() => {
+    this.Loading=!this.Loading
+  }, 2000);
+},
+methods:{
+  showAlert(){
+        this.toast("top","success","تم اضافه العنصر الي المفضله")
+  }
+},
+inject:["toast"]
 };
 </script>
 

@@ -87,7 +87,7 @@
                 >رقم الهاتف</label>
               </div>
               <div class="checkout">
-                <ion-button expand="block"> تعديل الملف الشخصي</ion-button>
+                <ion-button expand="block" @click="editProfile"> تعديل الملف الشخصي</ion-button>
               </div>
             </form>
           </ion-card-content>
@@ -116,7 +116,13 @@ export default {
   IonCard,
   IonCardContent,
   IonButton,
-}
+},
+methods:{
+  editProfile(){
+    this.toast("top","success","تم تعديل الملف الشخصي بنجاح")
+  }
+},
+inject:["toast"]
 };
 </script>
 <style scoped>

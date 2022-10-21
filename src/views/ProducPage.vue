@@ -66,6 +66,7 @@
             شراء الان
           </button>
           <button
+          @click="addToCart"
             class="border border-gray-600 text-blue-600 mx-auto p-4 rounded-xl"
           >
             <svg
@@ -96,7 +97,13 @@ export default {
   name: "ProducPage",
   components:{
   IonPage , IonContent
-}
+},
+methods:{
+  addToCart(){
+    this.alert("نجاح" , " تم اضافه المنتج الي السله بنجاح")
+  }
+},
+inject:["alert"]
 };
 </script>
 

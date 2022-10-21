@@ -73,7 +73,9 @@
         </div>
         </router-link>
        
-        <div class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
+        <div
+          @click="logout"
+         class="flex bg-gray-200 rounded-xl justify-between p-2 mt-2">
           <span class="text-xl text-red-500"> تسجيل الخروج </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +104,14 @@ export default {
   name: "ProfilePage",
   components:{
   IonPage ,IonHeader , IonContent
+},
+methods:{
+logout(){
+  this.$router.push("/tabs/HomePage")
+  this.toast("top","danger","تم تسجيل الخروج بنجاح")
 }
+},
+inject:["toast"]
 };
 </script>
 

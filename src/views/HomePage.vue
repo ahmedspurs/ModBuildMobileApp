@@ -73,11 +73,11 @@
         </ion-text>
       </div>
       <ion-slides class="cats" :options="{ slidesPerView: 2.5 }">
-        <ion-slide class="px-2" v-for="item in allCategories" :key="item.id">
+        <ion-slide class="px-2" v-for="item in 5" :key="item.id">
           <router-link to="/tabs/ProductsPage">
             <ion-card class="shadow-none w-full">
               <img
-              :src="item.image"
+                src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
                 alt=""
                 height="100"
                 class="rounded-xl h-56 w-full"
@@ -85,13 +85,12 @@
 
               <ion-card-content>
                 <ion-text class="text-center">
-                  <span class="font-semibold"> {{item.name}}</span>
+                  <span class="font-semibold"> {{ item.name }}</span>
                 </ion-text>
               </ion-card-content>
             </ion-card>
           </router-link>
         </ion-slide>
-
       </ion-slides>
 
       <!-- leatest products -->
@@ -106,7 +105,7 @@
         </ion-text>
       </div>
       <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
-        <ion-slide class="p-2" :key="item" v-for="item in 5">
+        <ion-slide class="p-2" :key="item.id" v-for="item in 5">
           <div class="border border-gray-300 rounded-xl p-6 relative">
             <router-link to="/tabs/ProducPage">
               <img
@@ -153,7 +152,7 @@
         </ion-text>
       </div>
       <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
-        <ion-slide class="p-2" :key="item" v-for="item in 5">
+        <ion-slide class="p-2" :key="item.id" v-for="item in 5">
           <div class="border border-gray-300 rounded-xl p-6 relative">
             <router-link to="/tabs/ProducPage">
               <img
@@ -218,7 +217,7 @@ export default {
   data() {
     return {
       Loading: true,
-      categories : []
+      categories: [],
     };
   },
   created() {
@@ -227,10 +226,12 @@ export default {
     }, 2000);
     this.$store.dispatch("fetchCategories");
 
-    this.categories = this.allSubCategories
+    this.categories = this.allSubCategories;
     console.log(this.categories);
   },
-  computed: mapGetters["products", "allCategories", "allSubCategories"],
+  computed: {
+    ...mapGetters(["allProducts", "allCategories", "allSubCategories"]),
+  },
   methods: {
     showAlert() {
       this.toast("top", "success", "تم اضافه العنصر الي المفضله");
@@ -240,5 +241,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,6 +1,7 @@
 <template>
   <ion-page class="bg-blue-50">
-    <ion-content>
+    <loading-spinner v-show="Loading" />
+    <ion-content v-show="!Loading">
       <!-- header section -->
       <div class="header bg-blue-500 text-white py-4 rounded-b-2xl">
         <div class="flex items-cnter justify-between px-4">
@@ -66,71 +67,31 @@
           <h1 class="font-semibold">الاقسام</h1>
         </ion-text>
         <ion-text class="flex items-center">
-           <router-link to="/tabs/CategoryPage">
-                      <h3 class="text-sm mt-8">عرض الكل</h3>
-
-        </router-link>
+          <router-link to="/tabs/CategoryPage">
+            <h3 class="text-sm mt-8">عرض الكل</h3>
+          </router-link>
         </ion-text>
       </div>
       <ion-slides class="cats" :options="{ slidesPerView: 2.5 }">
-        <ion-slide class="px-2">
-            <router-link to="/tabs/ProductsPage">
-             <ion-card class="shadow-none w-full">
-            <img
-              src="https://images.unsplash.com/photo-1588399944136-efbd34b99d6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=865&q=80"
-              alt=""
-              height="100"
-              class="rounded-xl h-56 w-full"
-            />
-
-            <ion-card-content>
-              <ion-text class="text-center">
-                <span class="font-semibold"> مواد بناء </span>
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
-        </router-link>
-         
-        </ion-slide>
-
-        <ion-slide class="px-2">
-           <router-link to="/tabs/ProductsPage">
-             <ion-card class="shadow-none w-full">
-            <img
-              src="https://images.unsplash.com/photo-1627882206813-8c1ffd86efec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-              alt=""
-              height="50"
-              class="rounded-xl h-56 w-full"
-            />
-            <ion-card-content>
-              <ion-text class="text-center">
-                <span class="font-semibold">اسمنت</span>
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
-        </router-link>
-         
-        </ion-slide>
-
-        <ion-slide class="px-2">
-          
- <router-link to="/tabs/ProductsPage">
+        <ion-slide class="px-2" v-for="item in allCategories" :key="item.id">
+          <router-link to="/tabs/ProductsPage">
             <ion-card class="shadow-none w-full">
-            <img
-              src="https://images.unsplash.com/photo-1588399944136-efbd34b99d6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=865&q=80"
-              alt=""
-              height="100"
-              class="rounded-xl h-56 w-full"
-            />
-            <ion-card-content>
-              <ion-text class="text-center">
-                <span class="font-semibold"> حديد تسليح </span>
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
-        </router-link>
-          
+              <img
+              :src="item.image"
+                alt=""
+                height="100"
+                class="rounded-xl h-56 w-full"
+              />
+
+              <ion-card-content>
+                <ion-text class="text-center">
+                  <span class="font-semibold"> {{item.name}}</span>
+                </ion-text>
+              </ion-card-content>
+            </ion-card>
+          </router-link>
         </ion-slide>
+
       </ion-slides>
 
       <!-- leatest products -->
@@ -139,24 +100,22 @@
           <h1 class="font-semibold">احدث المنتجات</h1>
         </ion-text>
         <ion-text class="flex items-center">
-           <router-link to="/tabs/ProductsPage">
-                      <h3 class="text-sm mt-8">عرض الكل</h3>
-
-        </router-link>
+          <router-link to="/tabs/ProductsPage">
+            <h3 class="text-sm mt-8">عرض الكل</h3>
+          </router-link>
         </ion-text>
       </div>
       <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
         <ion-slide class="p-2" :key="item" v-for="item in 5">
-          
           <div class="border border-gray-300 rounded-xl p-6 relative">
-             <router-link to="/tabs/ProducPage">
-            <img
-              class=""
-              src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
-              alt=""
-            />
-        </router-link>
-            
+            <router-link to="/tabs/ProducPage">
+              <img
+                class=""
+                src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
+                alt=""
+              />
+            </router-link>
+
             <div class="text-right">
               <span class="block font-semibold">مفك براغي</span>
               <span class="block">مغلق احمد</span>
@@ -170,6 +129,7 @@
               viewBox="0 0 24 24"
               stroke="currentColor"
               stroke-width="2"
+              @click="showAlert()"
             >
               <path
                 stroke-linecap="round"
@@ -187,23 +147,22 @@
           <h1 class="font-semibold">الاكثر مبيعا</h1>
         </ion-text>
         <ion-text class="flex items-center">
-           <router-link to="/tabs/ProductsPage">
-                      <h3 class="text-sm mt-8">عرض الكل</h3>
-
-        </router-link>
+          <router-link to="/tabs/ProductsPage">
+            <h3 class="text-sm mt-8">عرض الكل</h3>
+          </router-link>
         </ion-text>
       </div>
       <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
         <ion-slide class="p-2" :key="item" v-for="item in 5">
           <div class="border border-gray-300 rounded-xl p-6 relative">
-             <router-link to="/tabs/ProducPage">
+            <router-link to="/tabs/ProducPage">
               <img
-              class=""
-              src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
-              alt=""
-            />
-        </router-link>
-          
+                class=""
+                src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
+                alt=""
+              />
+            </router-link>
+
             <div class="text-right">
               <span class="block font-semibold">مفك براغي</span>
               <span class="block">مغلق احمد</span>
@@ -232,13 +191,52 @@
 </template>
 
 <script>
-import {IonPage , IonContent ,IonSlide ,IonSlides , IonCard,IonCardContent,IonText} from "@ionic/vue"
+import {
+  IonPage,
+  IonContent,
+  IonSlide,
+  IonSlides,
+  IonCard,
+  IonCardContent,
+  IonText,
+} from "@ionic/vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "HomePage",
-  components:{
-  IonPage, IonContent ,IonSlide ,IonSlides , IonCard,IonCardContent,IonText
-}
+  components: {
+    IonPage,
+    IonContent,
+    IonSlide,
+    IonSlides,
+    IonCard,
+    IonCardContent,
+    IonText,
+    LoadingSpinner,
+  },
+  data() {
+    return {
+      Loading: true,
+      categories : []
+    };
+  },
+  created() {
+    setTimeout(() => {
+      this.Loading = !this.Loading;
+    }, 2000);
+    this.$store.dispatch("fetchCategories");
+
+    this.categories = this.allSubCategories
+    console.log(this.categories);
+  },
+  computed: mapGetters["products", "allCategories", "allSubCategories"],
+  methods: {
+    showAlert() {
+      this.toast("top", "success", "تم اضافه العنصر الي المفضله");
+    },
+  },
+  inject: ["toast"],
 };
 </script>
 

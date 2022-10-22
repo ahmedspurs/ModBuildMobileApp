@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
 import HomePage from "../views/HomePage.vue";
 import CategoryPage from "../views/CategoryPage.vue";
@@ -15,7 +14,7 @@ import OrderDetails from "../views/OrderDetails.vue";
 import LastOrder from "../views/LastOrder.vue";
 import SubCategory from "../views/SubCategory.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
   {
     path: "/",
     redirect: "/tabs/HomePage"

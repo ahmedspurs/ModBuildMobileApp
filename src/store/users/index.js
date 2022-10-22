@@ -74,22 +74,6 @@ const actions = {
       return false;
     }
   },
-  async deleteUser({ commit, state }, id) {
-    try {
-      const response = await axios.delete(
-        `${state.session_url}/${id}`,
-        state.config
-      );
-      if (response.data.success) {
-        commit("removeUser", id);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (err) {
-      return false;
-    }
-  },
 };
 
 const mutations = {
@@ -111,9 +95,7 @@ const mutations = {
       state.token = null;
     }
   },
-  removeUser: (state, _id) => {
-    state.user = null;
-  },
+
   editUser: (state, data) => {
     state.user = data;
   },

@@ -1,6 +1,8 @@
 <template>
   <ion-page>
-    <ion-content>
+      <loading-spinner v-if="Loading" />
+
+    <ion-content v-if="!Loading">
       <div class="img z-10 relative">
         <img
           class="w-full h-1/2 rounded-b-2xl"
@@ -48,16 +50,14 @@
       <div class="bg-white -mt-6">
         <div class="flex justify-between items-center p-4 w-full">
           <div>
-            <h2>مفتاح 15</h2>
-            <span class="block"> مغلق احمد </span>
+            <h2>{{product?.name}}</h2>
+            <span class="block"> {{product?.user?.name}}</span>
           </div>
-          <h2>125.99$</h2>
+          <h2>{{product?.price}}$</h2>
         </div>
         <div class="descr px-4">
           <p class="text-gray-600">
-            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا
-            النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد
-            من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
+           {{product?.discr}}
           </p>
         </div>
         <div class="checkout flex justify-between items-center px-4">
@@ -65,7 +65,7 @@
             شراء الان
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart(product)"
             class="border border-gray-600 text-blue-600 mx-auto p-4 rounded-xl"
           >
             <svg
@@ -91,20 +91,57 @@
 
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
-import { mapGetters } from "vuex";
-
+import  axios from "axios"
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 export default {
   name: "ProducPage",
   components: {
     IonPage,
     IonContent,
+    LoadingSpinner,
+  },
+  data(){
+    return{
+      product : null,
+      Loading:true
+    }
+  },
+  async created(){
+  const id = this.$route.params.id
+      const url = `http://localhost:5000/api/v1/products/${id}`
+      const res = await axios.get(url)
+      this.product = res.data
+    this.getProduct()
+
+  },
+  mounted(){
+     setTimeout(() => {
+    this.Loading = false
+    console.log(this.product);
+  }, 1000);
   },
   methods: {
-    addToCart() {
+   async addToCart(product) {
+    const cart = {
+      id:product.id,
+      name : product.name,
+      price:product.price,
+      qty : 1
+    }
+     await this.$store.dispatch("addToCart",cart)
+
       this.alert("نجاح", " تم اضافه المنتج الي السله بنجاح");
+      console.log(this.$store.state.products.cart);
     },
+    async getProduct(){
+      const id = this.$route.params.id
+      const url = `http://localhost:5000/api/v1/products/${id}`
+      const res = await axios.get(url)
+      this.product = res.data
+
+    },
+   
   },
-  computed: mapGetters["products"],
   inject: ["alert"],
 };
 </script>

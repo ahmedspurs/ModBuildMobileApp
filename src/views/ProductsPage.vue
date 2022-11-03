@@ -11,7 +11,7 @@
              </router-link>
              </div>
           <h2>
-            مواد السباكه
+            {{product?.sub_sections?.name}}
           </h2>
           <div class="flex items-center">
             <div class=" p-3">
@@ -23,6 +23,7 @@
         </div>
       </ion-header>
       <ion-content>
+        
         <div class="flex justify-center items-center">
         <div class="flex w-3/4" dir="rtl">
           <button class="bg-white p-2 rounded-r-2xl shadow-xl">
@@ -49,20 +50,20 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4 p-4 py-8" >
-        <div class="card" :key="item" v-for="item in 8">
-           <div class="border border-gray-300 rounded-xl p-6 relative">
-             <router-link to="/tabs/producPage">
-             <img
-              class=""
-              src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
-              alt=""
-            />
-             </router-link>
-            
+        <div class="card" :key="item" v-for="item in products">
+               <div class="border border-gray-300 rounded-xl p-6 relative">
+            <router-link :to="`/tabs/ProducPage/${item?.id}`">
+              <img
+                class=""
+                src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
+                alt=""
+              />
+            </router-link>
+
             <div class="text-right">
-              <span class="block font-semibold">مفك براغي</span>
-              <span class="block">مغلق احمد</span>
-              <span class="text-blue-500 font-semibold block pt-2">150$</span>
+              <span class="block font-semibold"> {{item?.name}}</span>
+              <span class="block"> {{item?.user?.name}}</span>
+              <span class="text-blue-500 font-semibold block pt-2">{{item?.price}}$</span>
             </div>
 
             <svg
@@ -95,7 +96,17 @@ name:"ProductsPage",
 components:{
   IonPage , IonHeader , IonContent
 },
-computed : mapGetters["products"]
+computed : mapGetters(["allProducts"]),
+ data(){
+    return {
+products : []
+    }
+  },
+  created(){
+this.products = this.allProducts.filter(
+      (word) => word.id == this.$route.params.id
+    );
+  },
 }
 </script>
 

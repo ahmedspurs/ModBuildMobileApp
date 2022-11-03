@@ -13,11 +13,21 @@ import CheckoutPage from "../views/CheckoutPage.vue";
 import OrderDetails from "../views/OrderDetails.vue";
 import LastOrder from "../views/LastOrder.vue";
 import SubCategory from "../views/SubCategory.vue";
+import LoginPage from "../views/LoginPage.vue";
+import RegisterPage from "../views/RegisterPage.vue";
 
 const routes = [
   {
     path: "/",
     redirect: "/tabs/HomePage"
+  },
+  {
+    path: "/LoginPage",
+    component: LoginPage
+  },
+  {
+    path: "/RegisterPage",
+    component: RegisterPage
   },
   {
     path: "/tabs/",
@@ -36,15 +46,15 @@ const routes = [
         component: CategoryPage
       },
       {
-        path: "SubCategory",
+        path: "SubCategory/:id",
         component: SubCategory
       },
       {
-        path: "ProductsPage",
+        path: "ProductsPage/:id",
         component: ProductsPage
       },
       {
-        path: "ProducPage",
+        path: "ProducPage/:id",
         component: ProducPage
       },
       {
@@ -75,6 +85,8 @@ const routes = [
         path: "ProfilePage",
         component: ProfilePage
       },
+      
+      
       { path: "EditProfile", component: EditProfile }
     ]
   }

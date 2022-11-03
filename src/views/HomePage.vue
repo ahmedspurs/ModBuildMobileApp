@@ -72,8 +72,10 @@
           </router-link>
         </ion-text>
       </div>
-      <ion-slides class="cats" :options="{ slidesPerView: 2.5 }">
-        <ion-slide class="px-2" v-for="item in 5" :key="item.id">
+
+      <swiper class="cats" :options="{ slidesPerView: 2.5 }">
+        <swiper-slide class="px-2" v-for="item in allProducts" :key="item.id">
+        
           <router-link to="/tabs/ProductsPage">
             <ion-card class="shadow-none w-full">
               <img
@@ -85,13 +87,17 @@
 
               <ion-card-content>
                 <ion-text class="text-center">
-                  <span class="font-semibold"> {{ item.name }}</span>
+                
+                  <span class="font-semibold"> {{item?.name}}</span>
+
                 </ion-text>
               </ion-card-content>
             </ion-card>
           </router-link>
-        </ion-slide>
-      </ion-slides>
+
+        </swiper-slide>
+
+      </swiper>
 
       <!-- leatest products -->
       <div class="flex px-4 justify-between items-center">
@@ -151,10 +157,12 @@
           </router-link>
         </ion-text>
       </div>
-      <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
-        <ion-slide class="p-2" :key="item.id" v-for="item in 5">
+
+      <swiper class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
+        <swiper-slide class="p-2" :key="item?.id" v-for="item in allProducts">
+
           <div class="border border-gray-300 rounded-xl p-6 relative">
-            <router-link to="/tabs/ProducPage">
+            <router-link :to="`/tabs/ProducPage/${item?.id}`">
               <img
                 class=""
                 src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
@@ -163,9 +171,9 @@
             </router-link>
 
             <div class="text-right">
-              <span class="block font-semibold">مفك براغي</span>
-              <span class="block">مغلق احمد</span>
-              <span class="text-blue-500 font-semibold block pt-2">150$</span>
+              <span class="block font-semibold"> {{item?.name}}</span>
+              <span class="block"> {{item?.user?.name}}</span>
+              <span class="text-blue-500 font-semibold block pt-2">{{item?.price}}$</span>
             </div>
 
             <svg
@@ -183,8 +191,8 @@
               />
             </svg>
           </div>
-        </ion-slide>
-      </ion-slides>
+        </swiper-slide>
+      </swiper>
     </ion-content>
   </ion-page>
 </template>
@@ -199,6 +207,8 @@ import {
   IonCardContent,
   IonText,
 } from "@ionic/vue";
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import { mapGetters } from "vuex";
 
@@ -212,12 +222,13 @@ export default {
     IonCard,
     IonCardContent,
     IonText,
-    LoadingSpinner,
+    LoadingSpinner,Swiper, SwiperSlide
   },
   data() {
     return {
       Loading: true,
-      categories: [],
+      categories : [],
+      products :[]
     };
   },
   created() {
@@ -225,13 +236,15 @@ export default {
       this.Loading = !this.Loading;
     }, 2000);
     this.$store.dispatch("fetchCategories");
-
-    this.categories = this.allSubCategories;
-    console.log(this.categories);
   },
   computed: {
     ...mapGetters(["allProducts", "allCategories", "allSubCategories"]),
   },
+  mounted(){
+        this.categories = this.allSubCategories
+    this.products = this.allProducts
+  },
+  computed: mapGetters(["allProducts", "allCategories", "allSubCategories"]),
   methods: {
     showAlert() {
       this.toast("top", "success", "تم اضافه العنصر الي المفضله");

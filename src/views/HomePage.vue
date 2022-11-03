@@ -72,12 +72,14 @@
           </router-link>
         </ion-text>
       </div>
+
       <swiper class="cats" :options="{ slidesPerView: 2.5 }">
         <swiper-slide class="px-2" v-for="item in allProducts" :key="item.id">
+        
           <router-link to="/tabs/ProductsPage">
             <ion-card class="shadow-none w-full">
               <img
-              :src="item.image"
+                src="https://www.pngplay.com/wp-content/uploads/12/Screwdriver-Transparent-Free-PNG-Clip-Art.png"
                 alt=""
                 height="100"
                 class="rounded-xl h-56 w-full"
@@ -85,11 +87,14 @@
 
               <ion-card-content>
                 <ion-text class="text-center">
+                
                   <span class="font-semibold"> {{item?.name}}</span>
+
                 </ion-text>
               </ion-card-content>
             </ion-card>
           </router-link>
+
         </swiper-slide>
 
       </swiper>
@@ -106,7 +111,7 @@
         </ion-text>
       </div>
       <ion-slides class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
-        <ion-slide class="p-2" :key="item" v-for="item in 5">
+        <ion-slide class="p-2" :key="item.id" v-for="item in 5">
           <div class="border border-gray-300 rounded-xl p-6 relative">
             <router-link to="/tabs/ProducPage">
               <img
@@ -152,8 +157,10 @@
           </router-link>
         </ion-text>
       </div>
+
       <swiper class="p-2 leatest" :options="{ slidesPerView: 1.5 }">
         <swiper-slide class="p-2" :key="item?.id" v-for="item in allProducts">
+
           <div class="border border-gray-300 rounded-xl p-6 relative">
             <router-link :to="`/tabs/ProducPage/${item?.id}`">
               <img
@@ -229,9 +236,9 @@ export default {
       this.Loading = !this.Loading;
     }, 2000);
     this.$store.dispatch("fetchCategories");
-
-
-    console.log(this.products);
+  },
+  computed: {
+    ...mapGetters(["allProducts", "allCategories", "allSubCategories"]),
   },
   mounted(){
         this.categories = this.allSubCategories
@@ -247,5 +254,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
